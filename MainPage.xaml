@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NoteBook.MainPage"
+             xmlns:viewmodel="clr-namespace:NoteBook.ViewModel"
+             xmlns:models="clr-namespace:NoteBook.Model"
+             x:DataType="viewmodel:DetailPageViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"/>
+
+            <Button
+                Text="Add Note"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding IncreaseCounterCommand}"/>
+
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:NoteBookModel">
+                        <Frame Margin="0,10,0,0">
+                            <StackLayout>
+                                <Label Text="{Binding NoteTitle}" FontSize="Medium"/>
+                                <Label Text="{Binding NoteDetail}" FontSize="Medium"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
