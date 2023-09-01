@@ -8,13 +8,13 @@
     <VerticalStackLayout VerticalOptions="Start" Margin="20" >
         <Entry 
             Placeholder="Enter Title"
-            Text="{Binding Title}"
+            Text="{Binding Note.NoteTitle}"
             FontSize="25"
             FontAttributes="Bold"
             TextColor="Black"/>
         <Editor
             x:Name="multilineEditor"
-            Text="{Binding Detail}"
+            Text="{Binding Note.NoteDetail}"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
                 MinimumHeightRequest="180"

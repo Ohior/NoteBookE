@@ -44,7 +44,11 @@ namespace NoteBook.Model
             }
             else
             {
-                return await Database.InsertAsync(noteBook);
+                return await Database.InsertAsync(
+                    new NoteBookModel { 
+                        NoteTitle = noteBook.NoteTitle, 
+                        NoteDetail = noteBook.NoteDetail
+                    });
             }
         }
     }

@@ -11,6 +11,5 @@ public partial class EditPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
-		//NoteBookDatabase = new NoteBookDatabase();
 	}
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NoteBook.MainPage"
              xmlns:viewmodel="clr-namespace:NoteBook.ViewModel"
-             xmlns:models="clr-namespace:NoteBook.Model"
+             xmlns:model="clr-namespace:NoteBook.Model"
              x:DataType="viewmodel:DetailPageViewModel">
 
     <ScrollView>
@@ -18,16 +18,29 @@
             <Button
                 Text="Add Note"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Command="{Binding IncreaseCounterCommand}"/>
+                Command="{Binding AddNoteCommand}"/>
 
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:NoteBookModel">
+                    <DataTemplate x:DataType="model:NoteBookModel">
                         <Frame Margin="0,10,0,0">
                             <StackLayout>
                                 <Label Text="{Binding NoteTitle}" FontSize="Medium"/>
-                                <Label Text="{Binding NoteDetail}" FontSize="Medium"/>
+                                <Label Text="{Binding NoteDetail}" MaxLines="1"
+                                       FontSize="Medium"/>
                             </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{
+                                        Binding Source={
+                                            RelativeSource AncestorType={
+                                                x:Type viewmodel:DetailPageViewModel
+                                            }
+                                        },
+                                        Path=NoteBookItemClickedCommand
+                                    }"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

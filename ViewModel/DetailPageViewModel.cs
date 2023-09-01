@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NoteBook.Model;
 using NoteBook.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -10,16 +11,11 @@ namespace NoteBook.ViewModel
     {
 
         [ObservableProperty]
-        ObservableCollection<Model.NoteBookModel> items;
+        ObservableCollection<NoteBookModel> items;
 
-        public DetailPageViewModel()
+        public async void GetAllNotes()
         {
             Items = new ObservableCollection<Model.NoteBookModel>();
-            GetAllNotes();
-        }
-
-        private async void GetAllNotes()
-        {
             var notes = await EditPage.noteBookDatabase.GetAllNoteBooksAsync();
             foreach ( var notebook in notes )
             {
@@ -29,9 +25,22 @@ namespace NoteBook.ViewModel
         }
 
         [RelayCommand]
-        async Task IncreaseCounter()
+        async Task AddNote()
         {
-            await Shell.Current.GoToAsync(nameof(EditPage)); //Counter++;
+            await Shell.Current.GoToAsync(nameof(EditPage), new Dictionary<string, object>
+            {
+                {nameof(EditPage), new NoteBookModel()}
+            });
+        }
+
+        [RelayCommand]
+        async Task NoteBookItemClicked(NoteBookModel noteBook)
+        {
+            Debug.WriteLine(noteBook.ToString());
+            await Shell.Current.GoToAsync(nameof(EditPage), new Dictionary<string, object>
+            {
+                {nameof(EditPage), noteBook} 
+            });
         }
     }
 }
