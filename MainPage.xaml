@@ -23,14 +23,31 @@
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:NoteBookModel">
-                        <Frame Margin="0,10,0,0">
-                            <StackLayout>
-                                <Label Text="{Binding NoteTitle}" FontSize="Medium"/>
-                                <Label Text="{Binding NoteDetail}" MaxLines="1"
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        Text="Delete" 
+                                        BackgroundColor="Red"
+                                        Command="{
+                                            Binding Source={
+                                                RelativeSource AncestorType={
+                                                    x:Type viewmodel:DetailPageViewModel
+                                                }
+                                            },
+                                            Path=DeleteNoteBookSwipedCommand
+                                        }"
+                                        CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Margin="0,10,0,0">
+                                <StackLayout>
+                                    <Label Text="{Binding NoteTitle}" FontSize="Medium"/>
+                                    <Label Text="{Binding NoteDetail}" MaxLines="1"
                                        FontSize="Medium"/>
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
                                     Command="{
                                         Binding Source={
                                             RelativeSource AncestorType={
@@ -40,8 +57,9 @@
                                         Path=NoteBookItemClickedCommand
                                     }"
                                     CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

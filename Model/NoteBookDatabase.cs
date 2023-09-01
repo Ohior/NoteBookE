@@ -32,7 +32,7 @@ namespace NoteBook.Model
         public async Task<int> DeleteNoteBookAsync(NoteBookModel noteBook)
         {
             await Init();
-            return await Database.DeleteAsync<NoteBookModel>(noteBook);    
+            return await Database.DeleteAsync(noteBook);    
         }
 
         public async Task<int> SaveNoteBookAsync(NoteBookModel noteBook)

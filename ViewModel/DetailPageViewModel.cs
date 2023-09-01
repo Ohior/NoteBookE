@@ -42,5 +42,13 @@ namespace NoteBook.ViewModel
                 {nameof(EditPage), noteBook} 
             });
         }
+        [RelayCommand]
+        async Task DeleteNoteBookSwiped(NoteBookModel noteBook)
+        {
+            Debug.WriteLine(noteBook?.ToString());
+            await EditPage.noteBookDatabase.DeleteNoteBookAsync(noteBook!);
+            //Items.Clear();
+            GetAllNotes();
+        }
     }
 }
